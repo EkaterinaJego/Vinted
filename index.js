@@ -24,6 +24,10 @@ app.use(userRoutes);
 const offerRoutes = require('./routes/offer');
 app.use(offerRoutes);
 
+app.get('/', (req, res) => {
+  res.json("Bienvenue sur la page API Vinted");
+})
+
 app.all("*", (req,res) => {
   res.status(404).json({error: "Page not found"})
 })

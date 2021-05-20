@@ -28,8 +28,9 @@ if (emailtoFind) {
     hash: hash,
     salt: salt,
     });
-// const result = await cloudinary.uploader.upload(req.files.picture.path, {folder : `/vinted/user/${newUser.id}`});
-// newUser.avatar = result ; 
+
+const result = await cloudinary.uploader.upload(req.files.picture.path, {folder : `/vinted/user/${newUser.id}`});
+newUser.avatar = result ; 
 await newUser.save();
 
 res.status(200).json({account :{ username : username, phone : phone}, id : newUser.id, token : token});

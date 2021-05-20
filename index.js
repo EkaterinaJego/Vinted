@@ -24,8 +24,8 @@ app.use(userRoutes);
 const offerRoutes = require('./routes/offer');
 app.use(offerRoutes);
 
-app.get('/', (req, res) => {
-  res.json("Bienvenue sur la page API Vinted");
+app.get('https://my-vinted-backend-project.herokuapp.com/', (req, res) => {
+  res.json("Bienvenue sur la page API Vinted");p
 })
 
 app.all("*", (req,res) => {

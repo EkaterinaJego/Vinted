@@ -28,7 +28,7 @@ router.post("/user/signup/", async (req, res) => {
         salt: salt,
       });
 
-      if (req.files.picture.path) {
+      if (req.files.picture) {
         const result = await cloudinary.uploader.upload(
           req.files.picture.path,
           { folder: `/vinted/user/${newUser.id}` }
@@ -37,13 +37,11 @@ router.post("/user/signup/", async (req, res) => {
         await newUser.save();
       }
 
-      res
-        .status(200)
-        .json({
-          account: { username: username, phone: phone },
-          id: newUser.id,
-          token: token,
-        });
+      res.status(200).json({
+        account: { username: username, phone: phone },
+        id: newUser.id,
+        token: token,
+      });
     } else {
       res.json({ message: "Username is missing" });
     }

@@ -10,22 +10,22 @@ const stripe = createStripe(process.env.STRIPE_API_SECRET);
 // on réceptionne le token
 router.post("/payment", async (req, res) => {
   try {
-    // on envoie le token a Stripe avec le montant
-    console.log("Welcome to the payment page");
-    let { status } = await stripe.charges.create({
+    const stripeToken = req.fields.token;
+
+    const response = await stripe.charges.create({
       amount: req.fields.amount * 100,
       currency: "eur",
-      description: `Paiement vinted pour : ${req.fields.title}`,
-      source: req.fields.token,
+      title: req.fields.title,
+      source: stripeToken,
     });
     // Le paiement a fonctionné
     // On peut mettre à jour la base de données
     // On renvoie une réponse au client pour afficher un message de statut
-    res.json({ status });
+    res.json(response);
     console.log(status);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ error: error.message });
+    res.status(400).json("Error =", error.message);
   }
 });
 

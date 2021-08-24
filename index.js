@@ -28,7 +28,7 @@ const offerRoutes = require("./routes/offer");
 app.use(offerRoutes);
 
 app.get("/", (req, res) => {
-  res.json("Bienvenue sur l'API Vinted");
+  res.json("Bienvenue sur l'API Vinted 24_08_2021");
 });
 
 app.all("*", (req, res) => {

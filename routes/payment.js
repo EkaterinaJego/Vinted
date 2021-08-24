@@ -1,35 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const createStripe = require("stripe");
-const formidable = require("express-formidable");
+const formidableMiddleware = require("express-formidable");
+router.use(formidableMiddleware());
 
-router.use(formidable());
-const Offer = require("../models/Offer");
+/* Votre clé privée doit être indiquée ici */
+const stripe = createStripe(process.env.STRIPE_API_SECRET);
 
-// Clé privée de Stripe :
-const stripe = createStripe(process.env.STRIPE_SECRET_KEY);
-
+// on réceptionne le token
 router.post("/payment", async (req, res) => {
   try {
-    const { amount, title, token, _id } = req.fields;
-
-    // On reçoit un token et les informations sur l'article :
-
-    const response = await stripe.charges.create({
-      amount: amount * 100,
-      currence: "eur",
-      description: `Paiement pour ${title}`,
-      token: token,
+    // on envoie le token a Stripe avec le montant
+    let { status } = await stripe.charges.create({
+      amount: req.fields.amount * 100,
+      currency: "eur",
+      description: `Paiement vinted pour : ${req.fields.title}`,
+      source: req.fields.token,
     });
-    const findArticle = await Offer.findByIdAndDelete(_id);
-    if (response.status === "succeeded") {
-      res.json({
-        status: "succeeded",
-        article: findArticle,
-      });
-    }
+    // Le paiement a fonctionné
+    // On peut mettre à jour la base de données
+    // On renvoie une réponse au client pour afficher un message de statut
+    res.json({ status });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
   }
 });
 

@@ -3,7 +3,8 @@ const router = express.Router();
 const createStripe = require("stripe");
 
 /* Votre clé privée doit être indiquée ici */
-const stripe = createStripe(process.env.STRIPE_API_SECRET);
+
+const stripe = require("stripe")(process.env.STRIPE_API_SECRET);
 
 // on réceptionne le token
 // router.post("/payment", async (req, res) => {

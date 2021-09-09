@@ -22,6 +22,13 @@ router.post("/payment", async (req, res) => {
 
     // TO DO : MàJ base de données
 
+    const offerToDelete = await Offer.findOneAndDelete({
+      product_name: req.fields.title,
+    }).exec((err, doc) => {
+      if (err) return res.status(400).json({ success: false, err });
+      res.status(200).json({ success: true, doc });
+    });
+
     // Réponse au client pour afficher un message de statut:
     res.status(200).json(response);
     console.log(response);

@@ -16,13 +16,13 @@ router.post("/payment", async (req, res) => {
     const response = await stripe.charges.create({
       amount: req.fields.amount * 100,
       currency: "eur",
-      title: req.fields.title,
+      description: req.fields.title,
       source: stripeToken,
     });
     // Le paiement a fonctionné
     // TO DO : MàJ base de données
     // Réponse au client pour afficher un message de statut:
-    res.json(response);
+    res.status(200).json(response);
     console.log(response.data);
   } catch (error) {
     console.log(error.message);

@@ -11,6 +11,7 @@ const stripe = createStripe(process.env.STRIPE_API_SECRET);
 router.post("/payment", async (req, res) => {
   try {
     const stripeToken = req.fields.token;
+    console.log("STRIPETOKEN==>", stripeToken);
 
     const response = await stripe.charges.create({
       amount: req.fields.amount * 100,
@@ -19,13 +20,13 @@ router.post("/payment", async (req, res) => {
       source: stripeToken,
     });
     // Le paiement a fonctionné
-    // On peut mettre à jour la base de données
-    // On renvoie une réponse au client pour afficher un message de statut
+    // TO DO : MàJ base de données
+    // Réponse au client pour afficher un message de statut:
     res.json(response);
-    console.log(status);
+    console.log(response.data);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json("Error =", error.message);
+    res.status(400).json("Error =", error.response);
   }
 });
 

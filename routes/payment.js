@@ -12,8 +12,8 @@ router.post("/payment", async (req, res) => {
   try {
     const stripeToken = req.fields.token;
     const product_id = req.fields.id;
-    console.log("PRODUCT_ID===>", id);
-    console.log("AMOUNT==>", req.fields.amount);
+    console.log("PRODUCT_ID===>", product_id);
+
     const response = await stripe.charges.create({
       amount: req.fields.amount * 100,
       currency: "eur",

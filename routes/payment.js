@@ -14,7 +14,8 @@ router.post("/payment", async (req, res) => {
     console.log("STRIPETOKEN==>", stripeToken);
 
     const response = await stripe.charges.create({
-      amount: Number(req.fields.amount * 100),
+      // amount: Number(req.fields.amount) * 100,
+      amount: 2000,
       currency: "eur",
       description: req.fields.title,
       source: stripeToken,
@@ -26,7 +27,7 @@ router.post("/payment", async (req, res) => {
     console.log(response.data);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json("Error =", error.response);
+    res.status(400).json({ Error: error.response });
   }
 });
 

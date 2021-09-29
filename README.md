@@ -1,10 +1,10 @@
-# Vinted_backend
+# Vinted_backend 👚
 
 ## About this project
 
-This is a restricted copy of Vinted API, created in order to make work my copy of Vinted site (lien)
+This is a restricted copy of Vinted API, created to make work  my replica of Vinted site : [_👇_](https://github.com/EkaterinaJego/Vinted_frontend)
 
-## How to run the project
+## How to run the project ⚙️
 
 ### Clone this repository :
 
@@ -12,18 +12,21 @@ This is a restricted copy of Vinted API, created in order to make work my copy o
 
 `cd Vinted_backend`
 
-### Install packages  :
+### Install packages  : 
 
 `npm i`
 
-### Once installation is over, run it :
+### Once installation is over, run it : 
 
 `npx nodemon index.js`
 
 ## Main routes 
 
-- User : /signup, /login
-- Offer : /offer/publish, /offers, /offer/delete, /offer/update, /offer/:id
-- Payment : /payment
+- User : 
+ _signup,_ _login_
+- Offer :
+ _offer/publish_, _offers_, _offer/delete_, _offer/update_, _offer/:id_
+- Payment :
+_payment_
 
 
